@@ -72,6 +72,11 @@ public class CustomerFormController {
                         result.getDouble(4),
                         btn
                 );
+
+                btn.setOnAction(actionEvent -> {
+                    deleteCustomer(c.getId());
+                });
+
                 tmList.add(c);
             }
             connection.close();
@@ -82,9 +87,30 @@ public class CustomerFormController {
         }
     }
 
+    private void deleteCustomer(String id) {
+        String sql = "DELETE from customer WHERE id='"+id+"'";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Statement stm = connection.createStatement();
+            int result = stm.executeUpdate(sql);
+            if (result>0){
+                new Alert(Alert.AlertType.INFORMATION,"Customer Deleted!").show();
+                loadCustomerTable();
+            }else{
+                new Alert(Alert.AlertType.ERROR,"Something went wrong!").show();
+            }
+            connection.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     void reloadButtonOnAction(ActionEvent event) {
-
+        loadCustomerTable();
+        tblCustomer.refresh();
     }
 
     @FXML

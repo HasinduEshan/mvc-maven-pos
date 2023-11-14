@@ -25,7 +25,7 @@
           <TableColumn fx:id="colName" prefWidth="183.20005798339844" text="Name" />
             <TableColumn fx:id="colAddress" prefWidth="195.20001220703125" text="Address" />
             <TableColumn fx:id="colSalary" prefWidth="124.800048828125" text="Salary" />
-            <TableColumn fx:id="colOption" prefWidth="114.40006103515623" text="Option" />
+            <TableColumn fx:id="colOption" prefWidth="108.0001220703125" text="Option" />
         </columns>
       </TableView>
       <Button layoutX="692.0" layoutY="470.0" mnemonicParsing="false" onAction="#reloadButtonOnAction" prefHeight="26.0" prefWidth="60.0" text="Reload" />
