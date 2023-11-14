@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import model.Customer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -53,7 +54,12 @@ public class CustomerFormController {
 
     @FXML
     void saveButtonOnAction(ActionEvent event) {
-
+        Customer c = new Customer(txtId.getText(),
+                txtName.getText(),
+                txtAddress.getText(),
+                Double.parseDouble(txtSalary.getText())
+        );
+        String sql = "INSERT INTO customer VALUES('"+c.getId()+"','"+c.getName()+"','"+c.getAddress()+"',"+c.getSalary()+")";
     }
 
     @FXML
