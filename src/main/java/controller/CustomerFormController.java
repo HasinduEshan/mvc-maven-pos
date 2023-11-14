@@ -2,14 +2,17 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import model.Customer;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 
 public class CustomerFormController {
 
@@ -60,6 +63,18 @@ public class CustomerFormController {
                 Double.parseDouble(txtSalary.getText())
         );
         String sql = "INSERT INTO customer VALUES('"+c.getId()+"','"+c.getName()+"','"+c.getAddress()+"',"+c.getSalary()+")";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            Statement stm = connection.createStatement();
+            int result = stm.executeUpdate(sql);
+            if (result>0){
+                new Alert(Alert.AlertType.INFORMATION,"Customer Saved!").show();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
