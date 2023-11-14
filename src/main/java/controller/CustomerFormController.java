@@ -2,9 +2,13 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class CustomerFormController {
 
@@ -37,6 +41,10 @@ public class CustomerFormController {
 
     @FXML
     private TextField txtSalary;
+
+    public void initialize(){
+
+    }
 
     @FXML
     void reloadButtonOnAction(ActionEvent event) {
