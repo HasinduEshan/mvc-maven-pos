@@ -47,6 +47,7 @@ public class DashboardFormController {
         Stage stage = (Stage) pane.getScene().getWindow();
         try {
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/ItemForm.fxml"))));
+            stage.setResizable(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
