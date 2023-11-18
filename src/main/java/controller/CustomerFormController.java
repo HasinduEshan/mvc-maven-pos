@@ -110,12 +110,9 @@ public class CustomerFormController {
     }
 
     private void deleteCustomer(String id) {
-        String sql = "DELETE from customer WHERE id='"+id+"'";
-
         try {
-            Statement stm = DBConnection.getInstance().getConnection().createStatement();
-            int result = stm.executeUpdate(sql);
-            if (result>0){
+            boolean isDeleted = customerModel.deleteCustomer(id);
+            if (isDeleted){
                 new Alert(Alert.AlertType.INFORMATION,"Customer Deleted!").show();
                 loadCustomerTable();
             }else{
