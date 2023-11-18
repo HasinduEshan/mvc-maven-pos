@@ -1,3 +1,4 @@
+controller\ItemFormController.class
 model\tm\CustomerTm.class
 model\Customer.class
 controller\CustomerFormController.class
