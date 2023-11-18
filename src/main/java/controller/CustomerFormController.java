@@ -9,8 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Customer;
-import model.tm.CustomerTm;
+import dto.Customer;
+import dto.tm.CustomerTm;
 
 import java.io.IOException;
 import java.sql.*;

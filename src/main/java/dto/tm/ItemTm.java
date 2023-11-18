@@ -1,4 +1,4 @@
-package model.tm;
+package dto.tm;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;

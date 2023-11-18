@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.tm.ItemTm;
+import dto.tm.ItemTm;
 
 import java.io.IOException;
 
