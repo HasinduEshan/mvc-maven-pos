@@ -1,4 +1,7 @@
-controller\ItemFormController.class
-model\tm\CustomerTm.class
-model\Customer.class
+dto\tm\CustomerTm.class
+dto\CustomerDto.class
+dto\ItemDto.class
 controller\CustomerFormController.class
+controller\ItemFormController.class
+db\DBConnection.class
+dto\tm\ItemTm.class

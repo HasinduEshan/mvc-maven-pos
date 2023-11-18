@@ -1,19 +1,19 @@
 package dto;
 
-public class Customer {
+public class CustomerDto {
     private String id;
     private String name;
     private String address;
     private double salary;
 
-    public Customer(String id, String name, String address, double salary) {
+    public CustomerDto(String id, String name, String address, double salary) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.salary = salary;
     }
 
-    public Customer() {
+    public CustomerDto() {
     }
 
     @Override
