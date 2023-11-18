@@ -1,6 +1,9 @@
+E:\iCET\Teach\ICM105\JavaFx\maven-pos\src\main\java\model\CustomerModel.java
 E:\iCET\Teach\ICM105\JavaFx\maven-pos\src\main\java\controller\ItemFormController.java
 E:\iCET\Teach\ICM105\JavaFx\maven-pos\src\main\java\dto\tm\ItemTm.java
-E:\iCET\Teach\ICM105\JavaFx\maven-pos\src\main\java\dto\Customer.java
+E:\iCET\Teach\ICM105\JavaFx\maven-pos\src\main\java\dto\ItemDto.java
+E:\iCET\Teach\ICM105\JavaFx\maven-pos\src\main\java\dto\CustomerDto.java
+E:\iCET\Teach\ICM105\JavaFx\maven-pos\src\main\java\model\impl\CustomerModelImpl.java
 E:\iCET\Teach\ICM105\JavaFx\maven-pos\src\main\java\dto\tm\CustomerTm.java
 E:\iCET\Teach\ICM105\JavaFx\maven-pos\src\main\java\AppInitializer.java
 E:\iCET\Teach\ICM105\JavaFx\maven-pos\src\main\java\db\DBConnection.java

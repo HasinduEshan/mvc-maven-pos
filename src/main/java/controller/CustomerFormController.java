@@ -12,9 +12,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import dto.CustomerDto;
 import dto.tm.CustomerTm;
+import model.CustomerModel;
+import model.impl.CustomerModelImpl;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.List;
 
 
 public class CustomerFormController {
@@ -49,6 +52,8 @@ public class CustomerFormController {
     @FXML
     private TextField txtSalary;
 
+    private CustomerModel customerModel = new CustomerModelImpl();
+
     public void initialize(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -74,19 +79,18 @@ public class CustomerFormController {
 
     private void loadCustomerTable() {
         ObservableList<CustomerTm> tmList = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM customer";
 
         try {
-            Statement stm = DBConnection.getInstance().getConnection().createStatement();
-            ResultSet result = stm.executeQuery(sql);
+            List<CustomerDto> dtoList = customerModel.allCustomers();
 
-            while (result.next()){
+            for (CustomerDto dto:dtoList) {
                 Button btn = new Button("Delete");
+
                 CustomerTm c = new CustomerTm(
-                        result.getString(1),
-                        result.getString(2),
-                        result.getString(3),
-                        result.getDouble(4),
+                        dto.getId(),
+                        dto.getName(),
+                        dto.getAddress(),
+                        dto.getSalary(),
                         btn
                 );
 
@@ -98,7 +102,9 @@ public class CustomerFormController {
             }
 
             tblCustomer.setItems(tmList);
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -139,17 +145,13 @@ public class CustomerFormController {
 
     @FXML
     void saveButtonOnAction(ActionEvent event) {
-        CustomerDto c = new CustomerDto(txtId.getText(),
-                txtName.getText(),
-                txtAddress.getText(),
-                Double.parseDouble(txtSalary.getText())
-        );
-        String sql = "INSERT INTO customer VALUES('"+c.getId()+"','"+c.getName()+"','"+c.getAddress()+"',"+c.getSalary()+")";
-
         try {
-            Statement stm = DBConnection.getInstance().getConnection().createStatement();
-            int result = stm.executeUpdate(sql);
-            if (result>0){
+            boolean isSaved = customerModel.saveCustomer(new CustomerDto(txtId.getText(),
+                    txtName.getText(),
+                    txtAddress.getText(),
+                    Double.parseDouble(txtSalary.getText())
+            ));
+            if (isSaved){
                 new Alert(Alert.AlertType.INFORMATION,"Customer Saved!").show();
                 loadCustomerTable();
                 clearFields();
