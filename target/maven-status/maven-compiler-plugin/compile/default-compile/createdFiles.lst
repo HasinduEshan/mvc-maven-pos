@@ -1,4 +1,5 @@
 dto\tm\CustomerTm.class
+controller\PlaceOrderFormController.class
 dto\CustomerDto.class
 dto\ItemDto.class
 controller\CustomerFormController.class
