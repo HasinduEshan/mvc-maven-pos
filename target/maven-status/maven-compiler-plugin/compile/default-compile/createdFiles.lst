@@ -1,12 +1,14 @@
 dto\tm\CustomerTm.class
 controller\PlaceOrderFormController.class
 model\ItemModel.class
+controller\ItemFormController$1.class
 model\OrderModel.class
 controller\ItemFormController.class
 model\impl\CustomerModelImpl.class
 db\DBConnection.class
 dto\tm\OrderTm.class
 dto\OrderDto.class
+controller\ItemFormController$1$1.class
 dto\CustomerDto.class
 dto\ItemDto.class
 controller\CustomerFormController.class
