@@ -23,5 +23,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
+      <JFXButton layoutX="45.0" layoutY="304.0" onAction="#placeOrderButtonOnAction" prefHeight="70.0" prefWidth="138.0" style="-fx-background-color: #ff2130;" text="Place Order" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
