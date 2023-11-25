@@ -1,10 +1,12 @@
 dto\tm\CustomerTm.class
 controller\PlaceOrderFormController.class
 model\ItemModel.class
+Main.class
 controller\ItemFormController$1.class
 model\OrderModel.class
 controller\ItemFormController.class
 model\impl\CustomerModelImpl.class
+controller\DashboardFormController.class
 db\DBConnection.class
 dto\tm\OrderTm.class
 dto\OrderDto.class
@@ -17,5 +19,6 @@ model\OrderDetailsModel.class
 model\impl\ItemModelImpl.class
 model\CustomerModel.class
 dto\OrderDetailsDto.class
+AppInitializer.class
 model\impl\OrderModelImpl.class
 dto\tm\ItemTm.class
