@@ -13,14 +13,14 @@
 
 <AnchorPane prefHeight="593.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlaceOrderFormController">
    <children>
-      <JFXComboBox layoutX="65.0" layoutY="46.0" prefHeight="30.0" prefWidth="150.0" />
+      <JFXComboBox fx:id="cmbCustId" layoutX="65.0" layoutY="46.0" prefHeight="30.0" prefWidth="150.0" />
       <Label layoutX="65.0" layoutY="28.0" prefHeight="18.0" prefWidth="78.0" text="customer ID" />
-      <JFXComboBox layoutX="65.0" layoutY="117.0" prefHeight="30.0" prefWidth="150.0" />
+      <JFXComboBox fx:id="cmbItemCode" layoutX="65.0" layoutY="117.0" prefHeight="30.0" prefWidth="150.0" />
       <Label layoutX="65.0" layoutY="99.0" prefHeight="18.0" prefWidth="78.0" text="Item Code" />
-      <JFXTextField layoutX="252.0" layoutY="48.0" prefHeight="26.0" prefWidth="178.0" />
-      <JFXTextField layoutX="252.0" layoutY="120.0" prefHeight="26.0" prefWidth="178.0" />
-      <JFXTextField layoutX="467.0" layoutY="120.0" prefHeight="26.0" prefWidth="143.0" />
-      <JFXTextField layoutX="644.0" layoutY="120.0" prefHeight="26.0" prefWidth="78.0" />
+      <JFXTextField fx:id="txtCustName" layoutX="252.0" layoutY="48.0" prefHeight="26.0" prefWidth="178.0" />
+      <JFXTextField fx:id="txtDesc" layoutX="252.0" layoutY="120.0" prefHeight="26.0" prefWidth="178.0" />
+      <JFXTextField fx:id="txtUnitPrice" layoutX="467.0" layoutY="120.0" prefHeight="26.0" prefWidth="143.0" />
+      <JFXTextField fx:id="txtQty" layoutX="644.0" layoutY="120.0" prefHeight="26.0" prefWidth="78.0" />
       <Label layoutX="252.0" layoutY="99.0" prefHeight="18.0" prefWidth="78.0" text="Description" />
       <Label layoutX="252.0" layoutY="28.0" prefHeight="18.0" prefWidth="78.0" text="Name" />
       <Label layoutX="467.0" layoutY="99.0" prefHeight="18.0" prefWidth="78.0" text="Unit Price" />
