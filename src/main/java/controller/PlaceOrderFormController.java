@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dto.CustomerDto;
 import dto.ItemDto;
+import dto.OrderDto;
 import dto.tm.OrderTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +15,10 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import model.CustomerModel;
 import model.ItemModel;
+import model.OrderModel;
 import model.impl.CustomerModelImpl;
 import model.impl.ItemModelImpl;
+import model.impl.OrderModelImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,6 +38,7 @@ public class PlaceOrderFormController {
     public TreeTableColumn colAmount;
     public TreeTableColumn colOption;
     public Label lblTotal;
+    public Label lblOrderId;
 
     private List<CustomerDto> customers;
     private List<ItemDto> items;
@@ -42,6 +46,7 @@ public class PlaceOrderFormController {
 
     private CustomerModel customerModel = new CustomerModelImpl();
     private ItemModel itemModel = new ItemModelImpl();
+    private OrderModel orderModel = new OrderModelImpl();
 
     private ObservableList<OrderTm> tmList = FXCollections.observableArrayList();
 
@@ -52,7 +57,7 @@ public class PlaceOrderFormController {
         colAmount.setCellValueFactory(new TreeItemPropertyValueFactory<>("amount"));
         colOption.setCellValueFactory(new TreeItemPropertyValueFactory<>("btn"));
 
-
+        generateId();
 
         loadCustomerIds();
         loadItemCodes();
@@ -158,7 +163,27 @@ public class PlaceOrderFormController {
 
     }
 
-    public void placeOrderButtonOnAction(ActionEvent actionEvent) {
+    public void generateId(){
+        try {
+            OrderDto dto = orderModel.lastOrder();
+            if (dto!=null){
+                String id = dto.getOrderId();
+                int num = Integer.parseInt(id.split("[D]")[1]);
+                num++;
+                lblOrderId.setText(String.format("D%03d",num));
+            }else{
+                lblOrderId.setText("D001");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void placeOrderButtonOnAction(ActionEvent actionEvent) {
+        if (!tmList.isEmpty()){
+//            orderModel.saveOrder()
+        }
     }
 }
