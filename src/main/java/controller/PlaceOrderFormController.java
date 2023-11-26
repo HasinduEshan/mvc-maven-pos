@@ -1,11 +1,12 @@
 package controller;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.*;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import db.DBConnection;
 import dto.CustomerDto;
 import dto.ItemDto;
+import dto.OrderDto;
+import dto.tm.OrderTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Stage;
 import model.CustomerModel;
 import model.ItemModel;
@@ -45,7 +48,7 @@ public class PlaceOrderFormController {
     private JFXTextField txtQty;
 
     @FXML
-    private JFXTreeTableView<?> tblItem;
+    private JFXTreeTableView<OrderTm> tblItem;
 
     @FXML
     private TreeTableColumn<?, ?> colCode;
@@ -70,7 +73,15 @@ public class PlaceOrderFormController {
     private List<CustomerDto> customers;
     private List<ItemDto> items;
 
+    private ObservableList<OrderTm> tmList = FXCollections.observableArrayList();
+
     public void initialize(){
+        colCode.setCellValueFactory(new TreeItemPropertyValueFactory<>("code"));
+        colDesc.setCellValueFactory(new TreeItemPropertyValueFactory<>("desc"));
+        colQty.setCellValueFactory(new TreeItemPropertyValueFactory<>("qty"));
+        colAmount.setCellValueFactory(new TreeItemPropertyValueFactory<>("amount"));
+        colOption.setCellValueFactory(new TreeItemPropertyValueFactory<>("btn"));
+
         try {
             customers = customerModel.allCustomers();
             items = itemModel.allItems();
@@ -121,7 +132,29 @@ public class PlaceOrderFormController {
 
     @FXML
     void addToCartButtonOnAction(ActionEvent event) {
+        JFXButton btn = new JFXButton("Delete");
+        OrderTm tm = new OrderTm(
+                cmbCode.getValue().toString(),
+                txtDesc.getText(),
+                Integer.parseInt(txtQty.getText()),
+                Double.parseDouble(txtUnitPrice.getText())*Integer.parseInt(txtQty.getText()),
+                btn
+        );
+        boolean isExist = false;
+        for (OrderTm order:tmList) {
+            if (order.getCode().equals(tm.getCode())){
+                order.setQty(order.getQty()+tm.getQty());
+                order.setAmount(order.getAmount()+tm.getAmount());
+                isExist = true;
+            }
+        }
+        if (!isExist){
+            tmList.add(tm);
+        }
 
+        TreeItem treeItem = new RecursiveTreeItem<>(tmList, RecursiveTreeObject::getChildren);
+        tblItem.setRoot(treeItem);
+        tblItem.setShowRoot(false);
     }
 
     @FXML
