@@ -9,12 +9,15 @@ import dto.CustomerDto;
 import dto.ItemDto;
 import dto.tm.CustomerTm;
 import dto.tm.ItemTm;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -25,6 +28,7 @@ import model.impl.ItemModelImpl;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class ItemFormController {
     public BorderPane pane;
@@ -49,6 +53,20 @@ public class ItemFormController {
         colQty.setCellValueFactory(new TreeItemPropertyValueFactory<>("qty"));
         colOption.setCellValueFactory(new TreeItemPropertyValueFactory<>("btn"));
         loadItems();
+
+        txtSearch.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                tblItem.setPredicate(new Predicate<TreeItem<ItemTm>>() {
+                    @Override
+                    public boolean test(TreeItem<ItemTm> treeItem) {
+                        return treeItem.getValue().getCode().toLowerCase().contains(newValue.toLowerCase()) ||
+                                treeItem.getValue().getDesc().toLowerCase().contains(newValue.toLowerCase());
+
+                    }
+                });
+            }
+        });
     }
 
     private void loadItems() {
