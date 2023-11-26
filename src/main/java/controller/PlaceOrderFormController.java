@@ -88,6 +88,15 @@ public class PlaceOrderFormController {
                }
             }
         });
+
+        cmbCode.getSelectionModel().selectedItemProperty().addListener((observableValue, o, newValue) -> {
+            for (ItemDto dto:items) {
+                if (dto.getCode().equals(newValue.toString())){
+                    txtDesc.setText(dto.getDesc());
+                    txtUnitPrice.setText(String.format("%.2f",dto.getUnitPrice()));
+                }
+            }
+        });
     }
 
     private void loadItemCodes() {
