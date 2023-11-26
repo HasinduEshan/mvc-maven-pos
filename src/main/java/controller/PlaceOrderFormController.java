@@ -3,6 +3,11 @@ package controller;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
+import db.DBConnection;
+import dto.CustomerDto;
+import dto.ItemDto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +15,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeTableColumn;
 import javafx.stage.Stage;
+import model.CustomerModel;
+import model.ItemModel;
+import model.impl.CustomerModelImpl;
+import model.impl.ItemModelImpl;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 public class PlaceOrderFormController {
 
@@ -53,6 +64,32 @@ public class PlaceOrderFormController {
 
     @FXML
     private Label lblTotal;
+
+    private CustomerModel customerModel = new CustomerModelImpl();
+    private ItemModel itemModel = new ItemModelImpl();
+    private List<CustomerDto> customers;
+    private List<ItemDto> items;
+
+    public void initialize(){
+        try {
+            customers = customerModel.allCustomers();
+            items = itemModel.allItems();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        loadCustomerIds();
+    }
+
+    private void loadCustomerIds() {
+        ObservableList list = FXCollections.observableArrayList();
+
+        for (CustomerDto dto:customers) {
+            list.add(dto.getId());
+        }
+
+        cmbCustId.setItems(list);
+    }
 
     @FXML
     void addToCartButtonOnAction(ActionEvent event) {
