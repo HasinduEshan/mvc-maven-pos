@@ -72,6 +72,7 @@ public class PlaceOrderFormController {
     private ItemModel itemModel = new ItemModelImpl();
     private List<CustomerDto> customers;
     private List<ItemDto> items;
+    private double total=0;
 
     private ObservableList<OrderTm> tmList = FXCollections.observableArrayList();
 
@@ -133,6 +134,7 @@ public class PlaceOrderFormController {
     @FXML
     void addToCartButtonOnAction(ActionEvent event) {
         JFXButton btn = new JFXButton("Delete");
+
         OrderTm tm = new OrderTm(
                 cmbCode.getValue().toString(),
                 txtDesc.getText(),
@@ -140,17 +142,27 @@ public class PlaceOrderFormController {
                 Double.parseDouble(txtUnitPrice.getText())*Integer.parseInt(txtQty.getText()),
                 btn
         );
+        btn.setOnAction(actionEvent -> {
+            tmList.remove(tm);
+            total-=tm.getAmount();
+            lblTotal.setText(String.format("%.2f",total));
+            tblItem.refresh();
+        });
         boolean isExist = false;
         for (OrderTm order:tmList) {
             if (order.getCode().equals(tm.getCode())){
                 order.setQty(order.getQty()+tm.getQty());
                 order.setAmount(order.getAmount()+tm.getAmount());
                 isExist = true;
+                total+= tm.getAmount();
             }
         }
         if (!isExist){
             tmList.add(tm);
+            total+=tm.getAmount();
         }
+
+        lblTotal.setText(String.format("%.2f",total));
 
         TreeItem treeItem = new RecursiveTreeItem<>(tmList, RecursiveTreeObject::getChildren);
         tblItem.setRoot(treeItem);
