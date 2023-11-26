@@ -79,6 +79,25 @@ public class PlaceOrderFormController {
         }
 
         loadCustomerIds();
+        loadItemCodes();
+
+        cmbCustId.getSelectionModel().selectedItemProperty().addListener((observableValue, o, newValue) -> {
+            for (CustomerDto dto:customers) {
+               if (dto.getId().equals(newValue.toString())){
+                   txtCustName.setText(dto.getName());
+               }
+            }
+        });
+    }
+
+    private void loadItemCodes() {
+        ObservableList list = FXCollections.observableArrayList();
+
+        for (ItemDto dto:items) {
+            list.add(dto.getCode());
+        }
+
+        cmbCode.setItems(list);
     }
 
     private void loadCustomerIds() {
