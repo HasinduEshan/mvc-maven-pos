@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="451.0" prefWidth="635.0" style="-fx-background-color: royalblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardFormController">
+<AnchorPane fx:id="pane" prefHeight="451.0" prefWidth="635.0" style="-fx-background-color: royalblue;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardFormController">
    <children>
       <Button layoutX="43.0" layoutY="57.0" mnemonicParsing="false" onAction="#customerButtonOnAction" prefHeight="38.0" prefWidth="108.0" text="Customer" />
       <Label fx:id="lblTime" alignment="CENTER" layoutX="472.0" layoutY="18.0" prefHeight="38.0" prefWidth="131.0" text="HH:mm:ss" textAlignment="CENTER" textFill="WHITE">
@@ -22,6 +22,11 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </JFXButton>
+      <JFXButton layoutX="43.0" layoutY="318.0" onAction="#placeOrderButtonOnAction" prefHeight="63.0" prefWidth="121.0" style="-fx-background-color: #fa6948;" text="Place Order" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
       </JFXButton>
    </children>
 </AnchorPane>
