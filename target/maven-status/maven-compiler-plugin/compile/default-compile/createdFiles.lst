@@ -1,8 +1,10 @@
+model\OrderDetailModel.class
 dto\tm\CustomerTm.class
 controller\PlaceOrderFormController.class
 model\ItemModel.class
 Main.class
 controller\ItemFormController$1.class
+model\OrderModel.class
 dto\OrderDetailDto.class
 controller\ItemFormController.class
 model\impl\CustomerModelImpl.class
@@ -13,8 +15,10 @@ dto\OrderDto.class
 controller\ItemFormController$1$1.class
 dto\CustomerDto.class
 dto\ItemDto.class
+model\impl\OrderDetailModelImpl.class
 controller\CustomerFormController.class
 model\impl\ItemModelImpl.class
 model\CustomerModel.class
 AppInitializer.class
+model\impl\OrderModelImpl.class
 dto\tm\ItemTm.class

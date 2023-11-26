@@ -5,6 +5,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import db.DBConnection;
 import dto.CustomerDto;
 import dto.ItemDto;
+import dto.OrderDetailDto;
 import dto.OrderDto;
 import dto.tm.OrderTm;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -20,15 +22,21 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Stage;
 import model.CustomerModel;
 import model.ItemModel;
+import model.OrderModel;
 import model.impl.CustomerModelImpl;
 import model.impl.ItemModelImpl;
+import model.impl.OrderModelImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceOrderFormController {
 
+    public Label lblOrderId;
     @FXML
     private JFXComboBox<?> cmbCustId;
 
@@ -75,6 +83,7 @@ public class PlaceOrderFormController {
     private double total=0;
 
     private ObservableList<OrderTm> tmList = FXCollections.observableArrayList();
+    private OrderModel orderModel = new OrderModelImpl();
 
     public void initialize(){
         colCode.setCellValueFactory(new TreeItemPropertyValueFactory<>("code"));
@@ -109,6 +118,26 @@ public class PlaceOrderFormController {
                 }
             }
         });
+
+        setOrderId();
+    }
+
+    private void setOrderId() {
+        try {
+            String id = orderModel.getLastOrder().getOrderId();
+            if (id!=null){
+                int num = Integer.parseInt(id.split("[D]")[1]);
+                num++;
+                lblOrderId.setText(String.format("D%03d",num));
+            }else{
+                lblOrderId.setText("D001");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void loadItemCodes() {
@@ -183,6 +212,38 @@ public class PlaceOrderFormController {
 
     @FXML
     void placeOrderButtonOnAction(ActionEvent event) {
+        List<OrderDetailDto> list = new ArrayList<>();
+        for (OrderTm tm:tmList) {
+            list.add(new OrderDetailDto(
+                    lblOrderId.getText(),
+                    tm.getCode(),
+                    tm.getQty(),
+                    tm.getAmount()/tm.getQty()
+            ));
+        }
+
+        OrderDto dto = new OrderDto(
+                lblOrderId.getText(),
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")),
+                cmbCustId.getValue().toString(),
+                list
+        );
+
+
+        try {
+            boolean isSaved = orderModel.saveOrder(dto);
+            if (isSaved){
+                new Alert(Alert.AlertType.INFORMATION, "Order Saved!").show();
+                setOrderId();
+            }else{
+                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
